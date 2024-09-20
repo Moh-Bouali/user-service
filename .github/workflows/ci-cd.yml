@@ -42,25 +42,6 @@ jobs:
       run: docker push moh96/user-service:${{ github.sha }}
       working-directory: ./user-service
 
-    - name: Set up Minikube
-      run: |
-          curl -Lo minikube https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
-          chmod +x minikube
-          sudo mv minikube /usr/local/bin/
-          minikube start --driver=none
-
-    - name: Set up kubectl
-      run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl
-          sudo mv ./kubectl /usr/local/bin/
-
-    - name: Check Minikube Status
-      run: minikube status
-
-    - name: Set kubectl context
-      run: kubectl config use-context minikube
-
     - name: Deploy to Kubernetes
-      run: kubectl apply -f kubernetes-deployment.yaml
+      run: kubectl apply -f kubernetes-deployment.yaml --validate=false
       working-directory: ./user-service
