@@ -42,6 +42,6 @@ jobs:
       run: docker push moh96/user-service:${{ github.sha }}
       working-directory: ./user-service
 
-    - name: Deploy to Kubernetes
-      run: kubectl apply -f kubernetes-deployment.yaml --validate=false
-      working-directory: ./user-service
+    # - name: Deploy to Kubernetes
+    #   run: kubectl apply -f kubernetes-deployment.yaml --validate=false
+    #   working-directory: ./user-service
