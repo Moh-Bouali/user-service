@@ -28,10 +28,10 @@ jobs:
 
     - name: SonarCloud Scan
       run: mvn sonar:sonar -Dsonar.projectKey=Moh-Bouali_user-service -Dsonar.organization=moh-bouali -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      working-directory: ./user-service
 
     - name: Build Docker image
       run: docker build -t moh96/user-service:${{ github.sha }} .
-
     - name: Log in to DockerHub
       run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
