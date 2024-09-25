@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql-user-service
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-service
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+#  keycloak-mysql:
+#    container_name: keycloak-mysql-user
+#    image: mysql:8
+#    volumes:
+#      - ./volume-data/mysql_keycloak_data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: keycloak
+#      MYSQL_USER: keycloak
+#      MYSQL_PASSWORD: password
+#  keycloak:
+#    container_name: keycloak-user
+#    image: quay.io/keycloak/keycloak:24.0.1
+#    command: [ "start-dev", "--import-realm" ]
+#    environment:
+#      DB_VENDOR: MYSQL
+#      DB_ADDR: mysql
+#      DB_DATABASE: keycloak
+#      DB_USER: keycloak
+#      DB_PASSWORD: password
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#    ports:
+#      - "8181:8080"
+#    volumes:
+#      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+#    depends_on:
+#      - keycloak-mysql
+#
+#volumes:
+#  mysql:
