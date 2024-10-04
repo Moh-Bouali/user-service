@@ -6,6 +6,9 @@ import com.individual_s7.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -35,5 +38,19 @@ public class UserService {
     public User findUserById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public User findUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return user;
+    }
+
+    public List<User> findUserByUsernameOrEmail(String query){
+        return userRepository.findByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query);
+    }
+
+    public boolean userExists(String username, String email){
+        Optional<User> user = userRepository.findByUsernameOrEmail(username, email);
+        return user.isPresent();
     }
 }
