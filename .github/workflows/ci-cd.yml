@@ -29,6 +29,15 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+        
+    # Wait for RabbitMQ to start before adding custom user
+    - name: Wait for RabbitMQ to be ready
+      run: |
+        until docker exec rabbitmq rabbitmqctl status; do
+          echo "Waiting for RabbitMQ to start..."
+          sleep 5
+        done
+        echo "RabbitMQ is ready!"
 
     - name: Configure RabbitMQ custom credentials
       run: |
