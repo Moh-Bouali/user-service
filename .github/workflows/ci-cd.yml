@@ -12,6 +12,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+          - 15672:15672
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -21,6 +28,28 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+
+    - name: Configure RabbitMQ custom credentials
+      run: |
+        docker exec rabbitmq rabbitmqctl add_user user password
+        docker exec rabbitmq rabbitmqctl set_user_tags user administrator
+        docker exec rabbitmq rabbitmqctl set_permissions -p / user ".*" ".*" ".*"
+
+    - name: Wait for RabbitMQ to be ready
+      run: |
+        for i in {1..30}; do
+          nc -z localhost 5672 && break
+          echo "Waiting for RabbitMQ..."
+          sleep 2
+        done
+
+    - name: Run tests with Maven
+      env:
+        RABBITMQ_HOST: localhost
+        RABBITMQ_USER: user
+        RABBITMQ_PASS: password
+      run: mvn test
+      working-directory: ./user-service
 
     - name: Build with Maven
       run: mvn clean install
