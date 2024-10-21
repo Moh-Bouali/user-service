@@ -12,9 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
+     services:
       rabbitmq:
         image: rabbitmq:3-management
+        options: --name rabbitmq  # Set the RabbitMQ container name explicitly
         ports:
           - 5672:5672
           - 15672:15672
