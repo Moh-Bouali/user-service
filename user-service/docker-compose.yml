@@ -11,15 +11,15 @@ services:
       - ./mysql:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq-service
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASS: password
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    container_name: rabbitmq-service
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    environment:
+#      RABBITMQ_DEFAULT_USER: user
+#      RABBITMQ_DEFAULT_PASS: password
 
 #  keycloak-mysql:
 #    container_name: keycloak-mysql-user

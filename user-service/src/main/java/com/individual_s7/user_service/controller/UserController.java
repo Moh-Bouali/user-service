@@ -36,6 +36,24 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/delete")
+    //delete user by username
+    public ResponseEntity<String> deleteUser(Authentication authentication) {
+        // Extract JWT from the Authentication object
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        // Extract the username from the JWT claims (typically 'preferred_username' or 'sub')
+        String username = jwt.getClaimAsString("preferred_username");
+        if (username == null) {
+            username = jwt.getSubject(); // Fallback to 'sub' claim if 'preferred_username' is not present
+        }
+        // Fetch the user details from the database
+        User user = userService.findUserByUsername(username);
+        // Delete the user from the database
+        userService.deleteUserById(user.getId());
+        // Delete the user from Keycloak
+        keycloakAdminService.deleteUserInKeycloak(username);
+        return ResponseEntity.ok("User deleted successfully");
+    }
 
     @PutMapping("/update")
     public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest userRequest) {

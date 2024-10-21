@@ -57,6 +57,18 @@ public class KeycloakAdminService {
         // Optionally, you can retrieve the user’s Keycloak ID here for further use
     }
 
+    //delete user in keycloak
+    public void deleteUserInKeycloak(String username) {
+        UsersResource usersResource = keycloak.realm(realm).users();
+        List<UserRepresentation> users = usersResource.search(username);
+        if (users == null || users.isEmpty()) {
+            throw new RuntimeException("User not found in Keycloak: " + username);
+        }
+        String userId = users.get(0).getId();
+        UserResource userResource = usersResource.get(userId);
+        userResource.remove();
+    }
+
     public void updateUserInKeycloak(String currentUsername, String newUsername, String newEmail) {
         UsersResource usersResource = keycloak.realm(realm).users();
 
@@ -84,8 +96,6 @@ public class KeycloakAdminService {
             throw new RuntimeException("Failed to update user in Keycloak: " + e.getMessage());
         }
     }
-
-
 
     private CredentialRepresentation createPasswordCredentials(String password) {
         CredentialRepresentation passwordCred = new CredentialRepresentation();
