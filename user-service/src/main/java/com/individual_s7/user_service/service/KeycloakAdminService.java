@@ -118,6 +118,7 @@ package com.individual_s7.user_service.service;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.ws.rs.core.Response;
+import lombok.RequiredArgsConstructor;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
@@ -132,21 +133,22 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class KeycloakAdminService {
 
     @Value("${keycloak.admin.server-url}")
-    private String serverUrl;
+    private final String serverUrl;
 
     @Value("${keycloak.admin.realm}")
-    private String realm;
+    private final String realm;
 
     private final String clientId = "admin-cli";
 
     @Value("${keycloak.admin.username}")
-    private String adminUsername;
+    private final String adminUsername;
 
     @Value("${keycloak.admin.password}")
-    private String adminPassword;
+    private final String adminPassword;
 
     private Keycloak keycloak;
 
