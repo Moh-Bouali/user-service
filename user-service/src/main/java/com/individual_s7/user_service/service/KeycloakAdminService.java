@@ -8,7 +8,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -17,11 +16,8 @@ import java.util.List;
 @Service
 public class KeycloakAdminService {
 
-    @Value("${keycloak.admin.server-url}")
-    private String serverUrl;
-
-    @Value("${keycloak.admin.realm}")
-    private String realm;
+    private final String serverUrl = "http://keycloak:8080/";
+    private final String realm = "spring-microservices-security-realm";
     private final String clientId = "admin-cli";  // Use 'admin-cli' for administrative tasks
     //private final String clientSecret = "";       // Optional if you're using 'admin-cli'
     private final String adminUsername = "admin"; // Admin username
