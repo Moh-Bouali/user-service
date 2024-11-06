@@ -141,8 +141,8 @@ public class KeycloakAdminService {
     private final String adminUsername;
     private final String adminPassword;
     public KeycloakAdminService(
-            @Value("${keycloak.admin.server-url}") String serverUrl,
-            @Value("${keycloak.admin.realm}") String realm,
+            @Value("${keycloak.auth-server-url}") String serverUrl,
+            @Value("${keycloak.realm}") String realm,
             @Value("${keycloak.admin.username}") String adminUsername,
             @Value("${keycloak.admin.password}") String adminPassword) {
         this.serverUrl = serverUrl;
