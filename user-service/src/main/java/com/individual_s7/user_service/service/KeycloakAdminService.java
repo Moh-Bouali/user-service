@@ -133,22 +133,22 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class KeycloakAdminService {
 
-    @Value("${keycloak.admin.server-url}")
     private final String serverUrl;
-
-    @Value("${keycloak.admin.realm}")
     private final String realm;
-
     private final String clientId = "admin-cli";
-
-    @Value("${keycloak.admin.username}")
     private final String adminUsername;
-
-    @Value("${keycloak.admin.password}")
     private final String adminPassword;
+    public KeycloakAdminService(
+            @Value("${keycloak.admin.server-url}") String serverUrl,
+            @Value("${keycloak.admin.realm}") String realm,
+            @Value("${keycloak.admin.username}") String adminUsername,
+            @Value("${keycloak.admin.password}") String adminPassword) {
+        this.serverUrl = serverUrl;
+        this.realm = realm;
+        this.adminUsername = adminUsername;
+        this.adminPassword = adminPassword;}
 
     private Keycloak keycloak;
 
