@@ -14,7 +14,7 @@ class TestcontainersConfiguration {
 	MySQLContainer<?> mysqlContainer() {
 		return new MySQLContainer<>(DockerImageName.parse("mysql:8.0"))
 				.withUsername("testuser")
-				.withPassword("testpass")
+				.withPassword("testpass1")
 				.withDatabaseName("testdb");
 	}
 }
