@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class KeycloakAdminService {
 
-    @Value("${keycloak.admin.server-url}")
+    @Value("${keycloak.admin.server-url}/")
     private String serverUrl;
 
     @Value("${keycloak.admin.realm}")
