@@ -28,11 +28,14 @@ public class UserController {
             return ResponseEntity.badRequest().body("Username or password already exists");
         }
         else{
-            // Save the user to your local database
-            userService.createUser(userRequest);
-            // Register the user in Keycloak
             keycloakAdminService.registerUserInKeycloak(userRequest.username(), userRequest.password());
-            return ResponseEntity.ok("User created and registered in Keycloak");
+            // Save the user to your local database
+            if(keycloakAdminService.registeredUserInKeycloak){
+                userService.createUser(userRequest);
+                return ResponseEntity.ok("User created and registered in Keycloak");
+            }
+            // Register the user in Keycloak
+            return ResponseEntity.ok("User was not registered in Keycloak");
         }
     }
 

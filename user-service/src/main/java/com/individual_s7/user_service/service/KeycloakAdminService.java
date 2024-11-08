@@ -140,6 +140,8 @@ public class KeycloakAdminService {
     private final String clientId = "admin-cli";
     private final String adminUsername;
     private final String adminPassword;
+
+    public static  boolean registeredUserInKeycloak = false;
     public KeycloakAdminService(
             @Value("${keycloak.auth-server-url}") String serverUrl,
             @Value("${keycloak.realm}") String realm,
@@ -173,7 +175,9 @@ public class KeycloakAdminService {
 
         UsersResource usersResource = keycloak.realm(realm).users();
         Response response = usersResource.create(user);
+        registeredUserInKeycloak = true;
         if (response.getStatus() != 201) {
+            registeredUserInKeycloak = false;
             throw new RuntimeException("Failed to create user in Keycloak: " + response.getStatus());
         }
     }

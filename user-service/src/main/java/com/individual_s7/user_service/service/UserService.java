@@ -28,7 +28,6 @@ public class UserService {
                 .bio(userRequest.bio())
                 .profile(userRequest.profile())
                 .build();
-        System.out.println("Saving user: " + user);
         userRepository.save(user);
     }
 
