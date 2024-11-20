@@ -97,9 +97,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/trivy
-        key: ${{ runner.os }}-trivy-java-db
+        key: ${{ runner.os }}-trivy-db
         restore-keys: |
-          ${{ runner.os }}-trivy-java-db
+          ${{ runner.os }}-trivy-db
 
     - name: Scan Docker Image
       run: trivy image --exit-code 1 --severity CRITICAL moh96/user-service:latest
