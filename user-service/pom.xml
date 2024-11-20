@@ -174,11 +174,7 @@
 					<excludes>
 						<exclude>com/individual_s7/user_service/config/**</exclude>
 						<exclude>com/individual_s7/user_service/controller/**</exclude>
-						<exclude>com/individual_s7/user_service/dto/**</exclude>
-						<exclude>com/individual_s7/user_service/events/**</exclude>
 						<exclude>com/individual_s7/user_service/filters/**</exclude>
-						<exclude>com/individual_s7/user_service/mapper/**</exclude>
-						<exclude>com/individual_s7/user_service/repository/**</exclude>
 						<exclude>com/individual_s7/user_service/filters/KeycloakAdminService.java</exclude>
 					</excludes>
 				</configuration>
