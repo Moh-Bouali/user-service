@@ -102,7 +102,7 @@ jobs:
           ${{ runner.os }}-trivy-db
 
     - name: Scan Docker Image
-      run: trivy image canners vuln --exit-code 1 --severity CRITICAL moh96/user-service:latest
+      run: trivy image scanners vuln --exit-code 1 --severity CRITICAL moh96/user-service:latest
 
     - name: Push Docker Image with SHA Tag
       run: docker push moh96/user-service:${{ github.sha }}
