@@ -174,7 +174,7 @@ public class KeycloakAdminService {
         user.setRealmRoles(Collections.singletonList("user"));
 //        UsersResource usersResource = keycloak.realm(realm).users();
 //        Response response = usersResource.create(user);
-//        registeredUserInKeycloak = true;
+
 //        if (response.getStatus() != 201) {
 //            registeredUserInKeycloak = false;
 //            throw new RuntimeException("Failed to create user in Keycloak: " + response.getStatus());
@@ -182,8 +182,10 @@ public class KeycloakAdminService {
         UsersResource usersResource = keycloak.realm(realm).users();
         try (Response response = usersResource.create(user)) {
             if (response.getStatus() != 201) {
+                registeredUserInKeycloak = false;
                 throw new RuntimeException("Failed to create user in Keycloak: " + response.getStatus());
             }
+            registeredUserInKeycloak = true;
         }
     }
 

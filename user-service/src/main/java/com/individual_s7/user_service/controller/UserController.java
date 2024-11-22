@@ -35,7 +35,7 @@ public class UserController {
                 return ResponseEntity.ok("User created and registered in Keycloak");
             }
             // Register the user in Keycloak
-            return ResponseEntity.ok("User was not registered in Keycloak");
+            return ResponseEntity.ok("User was not registered in Keycloak nor the system");
         }
     }
 
