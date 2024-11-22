@@ -34,8 +34,10 @@ public class UserController {
                 userService.createUser(userRequest);
                 return ResponseEntity.ok("User created and registered in Keycloak");
             }
-            // Register the user in Keycloak
-            return ResponseEntity.ok("User was not registered in Keycloak nor the system");
+            else{
+                keycloakAdminService.deleteUserInKeycloak(userRequest.username());
+                return ResponseEntity.ok("User was not registered in Keycloak nor the system");
+            }
         }
     }
 
