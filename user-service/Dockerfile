@@ -2,7 +2,7 @@
 FROM openjdk:21-jdk
 
 # Copy CA cert into the image
-COPY deployment/ca.crt /usr/local/share/ca-certificates/ca.crt
+COPY ca.crt /usr/local/share/ca-certificates/ca.crt
 
 # Import the CA certificate into the default Java truststore
 RUN keytool -import -noprompt -trustcacerts \
